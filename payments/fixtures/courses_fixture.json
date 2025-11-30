@@ -1,0 +1,11 @@
+[
+  {
+    "model": "materials.course",
+    "pk": 2,
+    "fields": {
+      "title": "Мой крутой курс",
+      "description": "Здесь мы страдаем по REST",
+      "preview": null
+    }
+  }
+]

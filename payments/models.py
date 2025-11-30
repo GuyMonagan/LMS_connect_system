@@ -9,7 +9,7 @@ class Payment(models.Model):
         ('transfer', 'Перевод на счёт'),
     )
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payments')
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, blank=True)
     lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL, null=True, blank=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)

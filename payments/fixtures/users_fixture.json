@@ -1,0 +1,26 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "email": "werevalkury@gmail.com",
+      "phone": "",
+      "city": "",
+      "avatar": null,
+      "is_staff": false,
+      "is_superuser": false
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "email": "new2_email2@example.com",
+      "phone": "+79999876521",
+      "city": "Челябинск",
+      "avatar": null,
+      "is_staff": false,
+      "is_superuser": false
+    }
+  }
+]

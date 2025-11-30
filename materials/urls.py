@@ -1,9 +1,14 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import CourseViewSet, LessonListCreateView, LessonRetrieveUpdateDestroyView
+from payments.views import PaymentListView
+
+app_name = 'materials'
+
 
 router = DefaultRouter()
 router.register(r'courses', CourseViewSet)
+
 
 urlpatterns = [
     path('', include(router.urls)),

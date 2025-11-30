@@ -5,6 +5,9 @@ from .views import (
     UserUpdateView
 )
 
+app_name = 'users'
+
+
 urlpatterns = [
     path('', UserListCreateView.as_view(), name='user-list-create'),               # /api/users/
     path('<int:pk>/', UserRetrieveUpdateDeleteView.as_view(), name='user-detail'), # /api/users/1/

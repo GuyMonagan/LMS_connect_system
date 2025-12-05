@@ -7,10 +7,18 @@ class IsModer(BasePermission):
     Проверяем принадлежность к группе 'moderators'.
     """
 
+
     def has_permission(self, request, view):
-        user = request.user
-        return bool(
-            user
-            and user.is_authenticated
-            and user.groups.filter(name='moderators').exists()
+        return (
+            request.user.is_authenticated and
+            request.user.groups.filter(name='moderators').exists()
         )
+
+
+class IsOwner(BasePermission):
+    """
+    Разрешение: пользователь является владельцем объекта.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        return obj.owner == request.user

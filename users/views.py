@@ -31,6 +31,15 @@ class UserRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
 
 
+    def get_permissions(self):
+        if self.request.method in ('PUT', 'PATCH', 'DELETE'):
+            # редактировать — только себя
+            return [IsAuthenticated(), IsSelf()]
+
+        # GET — любой авторизованный
+        return [IsAuthenticated()]
+
+
 class UserUpdateView(generics.RetrieveUpdateAPIView):
     """
     Для редактирования профиля был использован RetrieveUpdateAPIView,

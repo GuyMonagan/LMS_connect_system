@@ -22,3 +22,12 @@ class IsOwner(BasePermission):
 
     def has_object_permission(self, request, view, obj):
         return obj.owner == request.user
+
+
+class IsSelf(BasePermission):
+    """
+    Разрешение: пользователь редактирует ТОЛЬКО свой профиль.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        return request.user.is_authenticated and obj.id == request.user.id

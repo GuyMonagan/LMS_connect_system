@@ -10,3 +10,17 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'email', 'phone', 'city', 'avatar', 'payments']
+
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        user = self.context['request'].user
+
+        # если чужой профиль — скрываем поля
+        if user.id != instance.id:
+            data.pop('phone', None)
+            data.pop('city', None)
+            data.pop('payments', None)
+
+        return data

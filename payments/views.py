@@ -5,6 +5,7 @@ from .serializers import PaymentSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
 from .filters import PaymentFilter
+from rest_framework.permissions import IsAuthenticated
 
 
 class PaymentListView(generics.ListAPIView):
@@ -14,3 +15,4 @@ class PaymentListView(generics.ListAPIView):
     filterset_class = PaymentFilter
     ordering_fields = ['payment_date']
     ordering = ['-payment_date']
+    permission_classes = [IsAuthenticated]

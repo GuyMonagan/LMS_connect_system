@@ -5,7 +5,8 @@ from .models import Payment
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
-        fields = '__all__'
+        fields = ['id', 'amount', 'payment_method', 'course', 'lesson']
+        read_only_fields = ['id']
 
 
 class PaymentShortSerializer(serializers.ModelSerializer):

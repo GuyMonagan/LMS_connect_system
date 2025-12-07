@@ -17,5 +17,9 @@ class Payment(models.Model):
     payment_method = models.CharField(max_length=20, choices=PAYMENT_METHODS)
 
 
+    payment_url = models.URLField(null=True, blank=True)
+    stripe_session_id = models.CharField(max_length=255, null=True, blank=True)
+
+
     def __str__(self):
         return f"Оплата от {self.user.email} на сумму {self.amount}"

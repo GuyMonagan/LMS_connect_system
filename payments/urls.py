@@ -1,6 +1,8 @@
+
 from django.urls import path
-from .views import PaymentListView  # пока только это
+from .views import PaymentListCreateView, PaymentStatusView
 
 urlpatterns = [
-    path('', PaymentListView.as_view(), name='payment-list'),
+    path('', PaymentListCreateView.as_view(), name='payment-list-create'),  # <--- и GET, и POST
+    path('<int:pk>/status/', PaymentStatusView.as_view(), name='payment-status'),
 ]

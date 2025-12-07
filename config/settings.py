@@ -16,6 +16,7 @@ from dotenv import load_dotenv
 import stripe
 load_dotenv()
 
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

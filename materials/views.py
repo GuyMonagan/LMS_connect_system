@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from .models import Subscription
 from .paginators import CustomPagination
+from materials.tasks import send_course_update_email
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -15,6 +16,7 @@ class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     permission_classes = [IsAuthenticated]
     pagination_class = CustomPagination
+
 
     def get_permissions(self):
         # запрещаем модераторам create + destroy
@@ -31,9 +33,15 @@ class CourseViewSet(viewsets.ModelViewSet):
 
         return [permission() for permission in permission_classes]
 
+
     def perform_create(self, serializer):
         # автоматическая привязка владельца
         serializer.save(owner=self.request.user)
+
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        send_course_update_email.delay(instance.id)
 
 
 class LessonListCreateView(generics.ListCreateAPIView):

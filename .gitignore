@@ -229,3 +229,10 @@ staticfiles/
 
 # Mac & system
 .DS_Store
+
+
+celerybeat-schedule
+celerybeat-schedule.db
+
+celery.log
+celerybeat.log

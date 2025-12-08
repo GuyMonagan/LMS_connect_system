@@ -3,6 +3,7 @@ from .models import User
 from .serializers import UserSerializer
 from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
+from .permissions import IsSelf
 
 
 class UserRegisterView(generics.CreateAPIView):

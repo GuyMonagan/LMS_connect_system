@@ -147,3 +147,20 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ]
 }
+
+
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = os.getenv("CELERY_TIMEZONE", "UTC")
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+# DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL') or EMAIL_HOST_USER
+
+
+TIME_ZONE = 'Europe/Moscow'  # или 'UTC'
+USE_TZ = True
+CELERY_TIMEZONE = TIME_ZONE

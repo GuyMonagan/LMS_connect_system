@@ -237,3 +237,5 @@ celerybeat-schedule.db
 celery.log
 celerybeat.log
 celerybeat-schedule*
+
+celerybeat-schedule.*

@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.utils import timezone
 from datetime import timedelta
 from users.models import User
-from materials.tasks import deactivate_inactive_users
+from users.tasks import deactivate_inactive_users
 
 
 class DeactivateInactiveUsersTest(TestCase):

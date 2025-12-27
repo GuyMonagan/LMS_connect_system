@@ -10,12 +10,13 @@
 ## Стек
 
 - Python 3.11 
-- Django 4.x 
+- Django 5.x 
 - Django REST Framework 
 - PostgreSQL 
-- Postman для тестирования AP
+- Postman для тестирования API
+- Docker
 
-## Установка и запуск
+## Запуск проекта через Docker
 
 1. Клонировать проект
 ```
@@ -23,46 +24,31 @@ git clone https://github.com/GuyMonagan/LMS_connect_system
 cd LMS_connect_system
 ```
 
-2. Установить зависимости
+2. Создайте файл `.env` на основе `.env.example` и заполните необходимые переменные
+
+
+3. Запуск сервисов
 
 ```
-poetry install
+docker compose up --build
 ```
 
-3. Настроить переменные окружения
+После запуска будут доступны сервисы:
+- Django backend — http://localhost:8000
+- PostgreSQL — внутри Docker
+- Redis — брокер Celery
+- Celery worker и Celery Beat
 
-Создать файл .env:
 
-```
-POSTGRES_DB=lms_db
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_HOST=localhost
-POSTGRES_PORT=5432
-SECRET_KEY=django-insecure-123
+## Загрузка тестовых данных (опционально)
 
-```
+Для загрузки фикстур можно выполнить команды:
 
-4. Применить миграции
-
-```
-poetry run python manage.py migrate
-```
-
-5. Загрузить тестовые данные (фикстуры)
-
-```
-poetry run python manage.py loaddata payments/fixtures/users_fixture.json
-poetry run python manage.py loaddata payments/fixtures/courses_fixture.json
-poetry run python manage.py loaddata payments/fixtures/lessons_fixture.json
-poetry run python manage.py loaddata payments/fixtures/payments_fixture.json
-
-```
-
-6. Запуск сервера
-
-```
-poetry run python manage.py runserver
+```bash
+docker compose exec web python manage.py loaddata payments/fixtures/users_fixture.json
+docker compose exec web python manage.py loaddata payments/fixtures/courses_fixture.json
+docker compose exec web python manage.py loaddata payments/fixtures/lessons_fixture.json
+docker compose exec web python manage.py loaddata payments/fixtures/payments_fixture.json
 ```
 
 ## Функциональность проекта
@@ -106,22 +92,6 @@ poetry run python manage.py runserver
 - users — кастомная модель пользователя 
 - payments — платежи + фильтрация + фикстуры 
 - config — настройки, маршрутизация
-
-
-## Выполненные требования
-
-- ViewSet для курса 
-- Generic-классы для уроков 
-- Доп. поле количества уроков 
-- Модель Payment 
-- Фикстуры 
-- Вложенный вывод уроков 
-- Фильтрация платежей 
-- История платежей в профиле 
-- PostgreSQL 
-- namespace для приложений 
-- User без username
----
 
 
 ## Celery + Redis интеграция

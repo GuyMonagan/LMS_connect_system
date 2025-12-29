@@ -25,7 +25,19 @@ jobs:
         run: poetry install --no-interaction --no-root
 
       - name: Run tests
+        env:
+          DEBUG: "0"
+          SECRET_KEY: "test-secret-key"
+          DB_NAME: "test_db"
+          DB_USER: "test_user"
+          DB_PASSWORD: "test_password"
+          DB_HOST: "localhost"
+          DB_PORT: "5432"
+          REDIS_URL: "redis://localhost:6379/0"
+          CELERY_BROKER_URL: "redis://localhost:6379/0"
+          CELERY_RESULT_BACKEND: "redis://localhost:6379/0"
         run: poetry run python manage.py test
+
 
       - name: Log in to GHCR
         run: |

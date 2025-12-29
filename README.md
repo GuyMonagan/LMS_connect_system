@@ -51,6 +51,19 @@ docker compose exec web python manage.py loaddata payments/fixtures/lessons_fixt
 docker compose exec web python manage.py loaddata payments/fixtures/payments_fixture.json
 ```
 
+## Deployment
+
+Проект использует Docker и GitHub Actions для автоматического деплоя.
+
+- `docker-compose.yml` — для локальной разработки
+- `docker-compose.prod.yml` — для продакшн-деплоя
+
+После успешного прохождения тестов GitHub Actions:
+- собирает Docker-образ
+- публикует его в registry
+- деплоит на сервер через SSH
+
+
 ## Функциональность проекта
 
 Курсы (ViewSet)

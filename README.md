@@ -64,6 +64,20 @@ docker compose exec web python manage.py loaddata payments/fixtures/payments_fix
 - деплоит на сервер через SSH
 
 
+## CI/CD
+
+Проект использует GitHub Actions для CI/CD.
+
+Pipeline:
+- запуск тестов
+- сборка Docker-образа
+- публикация в GitHub Container Registry
+- деплой на сервер по SSH
+
+Для локальной разработки используется `docker-compose.yml`,
+для продакшн-деплоя — `docker-compose.prod.yml`.
+
+
 ## Функциональность проекта
 
 Курсы (ViewSet)

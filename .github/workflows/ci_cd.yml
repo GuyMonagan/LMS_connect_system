@@ -1,0 +1,51 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  test-build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-root
+
+      - name: Run tests
+        run: poetry run python manage.py test
+
+      - name: Log in to GHCR
+        run: |
+          echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
+
+      - name: Build Docker image
+        run: |
+          docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/lms-web:latest .
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/lms-web:latest
+
+      - name: Deploy to server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ${{ secrets.APP_DIR }}
+            docker pull ghcr.io/${{ secrets.GHCR_USERNAME }}/lms-web:latest
+            docker compose up -d

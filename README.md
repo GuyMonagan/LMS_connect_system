@@ -51,32 +51,6 @@ docker compose exec web python manage.py loaddata payments/fixtures/lessons_fixt
 docker compose exec web python manage.py loaddata payments/fixtures/payments_fixture.json
 ```
 
-## Deployment
-
-Проект использует Docker и GitHub Actions для автоматического деплоя.
-
-- `docker-compose.yml` — для локальной разработки
-- `docker-compose.prod.yml` — для продакшн-деплоя
-
-После успешного прохождения тестов GitHub Actions:
-- собирает Docker-образ
-- публикует его в registry
-- деплоит на сервер через SSH
-
-
-## CI/CD
-
-Проект использует GitHub Actions для CI/CD.
-
-Pipeline:
-- запуск тестов
-- сборка Docker-образа
-- публикация в GitHub Container Registry
-- деплой на сервер по SSH
-
-Для локальной разработки используется `docker-compose.yml`,
-для продакшн-деплоя — `docker-compose.prod.yml`.
-
 
 ## Функциональность проекта
 
@@ -135,6 +109,27 @@ Pipeline:
 
 Проект автоматически деплоится на удаленный сервер с помощью GitHub Actions.
 
+После успешного прохождения тестов GitHub Actions:
+- собирает Docker-образ
+- публикует его в registry
+- деплоит на сервер через SSH
+
+
+## CI/CD
+
+Проект использует GitHub Actions для CI/CD.
+
+Pipeline:
+- запуск тестов
+- сборка Docker-образа
+- публикация в GitHub Container Registry
+- деплой на сервер по SSH
+
+Для локальной разработки используется `docker-compose.yml`,
+для продакшн-деплоя — `docker-compose.prod.yml`.
+
+
+
 ### Используемый стек
 - Docker / Docker Compose
 - GitHub Actions
@@ -177,8 +172,21 @@ Workflow расположен в .github/workflows/ci_cd.yml и выполняе
 
 - Workflow запускается автоматически при push или merge в ветку develop.
 
+### Порты
+
+Порты на сервервере :8000? ssh отдельно открыты с помощью ufw
+```
+sudo apt update
+sudo apt install ufw -y
+sudo ufw allow 8000
+sudo ufw enable
+sudo ufw allow ssh
+sudo ufw reload
+```
+
 ## Доступ к приложению
 
 Приложение развернуто и доступно по адресу:
 
 http://185.184.120.231:8000
+

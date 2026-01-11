@@ -1,9 +1,10 @@
-from django.test import TestCase
+from unittest.mock import patch
+
 from django.contrib.auth import get_user_model
-from django.core.mail import send_mail
+from django.test import TestCase
+
 from materials.models import Course, Subscription
 from materials.tasks import send_course_update_email
-from unittest.mock import patch
 
 User = get_user_model()
 

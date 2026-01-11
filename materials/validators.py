@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+
 class YouTubeValidator:
     def __init__(self, field):
         self.field = field

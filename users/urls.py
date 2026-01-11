@@ -1,8 +1,8 @@
 from django.urls import path
-from rest_framework.permissions import IsAuthenticated
+
 from .views import (
-    UserRegisterView,
     UserListView,
+    UserRegisterView,
     UserRetrieveUpdateDeleteView,
     UserUpdateView,
 )

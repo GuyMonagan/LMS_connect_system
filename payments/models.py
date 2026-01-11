@@ -1,6 +1,7 @@
 from django.db import models
-from users.models import User
+
 from materials.models import Course, Lesson
+from users.models import User
 
 
 class Payment(models.Model):

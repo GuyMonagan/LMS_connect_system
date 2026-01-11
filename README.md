@@ -120,6 +120,7 @@ docker compose exec web python manage.py loaddata payments/fixtures/payments_fix
 Проект использует GitHub Actions для CI/CD.
 
 Pipeline:
+- Линтинг
 - запуск тестов
 - сборка Docker-образа
 - публикация в GitHub Container Registry
@@ -136,6 +137,7 @@ Pipeline:
 - GitHub Container Registry (GHCR)
 - Ubuntu Server
 - SSH-доступ по ключам
+- Nginx
 
 ### Подготовка сервера
 1. Создан пользователь `deploy`
@@ -150,6 +152,11 @@ Pipeline:
 ```
 docker login ghcr.io
 ```
+Предварительно создана директория проекта, созданы файлы конфигурации: 
+.env
+docker-compose.yml # копирует docker-compose.prod.yml локального проекта
+nginx/nginx.conf # копирует nginx/nginx.conf локального проекта. Сервис установится автоматически при деплое
+
 ## Переменные окружения
 
 Все чувствительные данные вынесены в файл .env, который не хранится в репозитории.
@@ -161,6 +168,8 @@ docker login ghcr.io
 Workflow расположен в .github/workflows/ci_cd.yml и выполняет следующие шаги:
 
 - Установка зависимостей
+
+- Запуск линтера ruff
 
 - Запуск тестов
 
@@ -174,13 +183,14 @@ Workflow расположен в .github/workflows/ci_cd.yml и выполняе
 
 ### Порты
 
-Порты на сервервере :8000? ssh отдельно открыты с помощью ufw
+Порты на сервервере :8000, :80 ssh отдельно открыты с помощью ufw
 ```
 sudo apt update
 sudo apt install ufw -y
 sudo ufw allow 8000
 sudo ufw enable
 sudo ufw allow ssh
+sudo ufw allow 80/tcp
 sudo ufw reload
 ```
 
@@ -188,5 +198,4 @@ sudo ufw reload
 
 Приложение развернуто и доступно по адресу:
 
-http://185.184.120.231:8000
-
+http://185.184.120.231

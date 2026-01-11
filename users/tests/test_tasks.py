@@ -1,6 +1,8 @@
+from datetime import timedelta
+
 from django.test import TestCase
 from django.utils import timezone
-from datetime import timedelta
+
 from users.models import User
 from users.tasks import deactivate_inactive_users
 

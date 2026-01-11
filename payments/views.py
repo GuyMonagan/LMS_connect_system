@@ -1,20 +1,18 @@
-from django.shortcuts import render
-from rest_framework import generics
-from .models import Payment
-from .serializers import PaymentSerializer
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import OrderingFilter
-from .filters import PaymentFilter
-from rest_framework.permissions import IsAuthenticated
 import stripe
-import os
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import generics
+from rest_framework.filters import OrderingFilter
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status, permissions
+
+from .filters import PaymentFilter
+from .models import Payment
+from .serializers import PaymentSerializer
 from .services import (
-    create_stripe_product,
-    create_stripe_price,
     create_checkout_session,
+    create_stripe_price,
+    create_stripe_product,
 )
 
 

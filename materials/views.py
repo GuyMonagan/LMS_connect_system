@@ -1,14 +1,14 @@
-from rest_framework import viewsets, generics
+from rest_framework import generics, permissions, status, viewsets
 from rest_framework.permissions import IsAuthenticated
-from .models import Course, Lesson
-from .serializers import CourseSerializer, LessonSerializer
-from users.permissions import IsModer, IsOwner
-from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status, permissions
-from .models import Subscription
-from .paginators import CustomPagination
+from rest_framework.views import APIView
+
 from materials.tasks import send_course_update_email
+from users.permissions import IsModer, IsOwner
+
+from .models import Course, Lesson, Subscription
+from .paginators import CustomPagination
+from .serializers import CourseSerializer, LessonSerializer
 
 
 class CourseViewSet(viewsets.ModelViewSet):
